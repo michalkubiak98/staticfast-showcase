@@ -1,99 +1,136 @@
+'use client'
+
+import { useState, useEffect } from 'react'
+
 export default function Home() {
+  const [darkMode, setDarkMode] = useState(false)
+
+  useEffect(() => {
+    const isDark = localStorage.getItem('darkMode') === 'true'
+    setDarkMode(isDark)
+    if (isDark) {
+      document.documentElement.classList.add('dark')
+    }
+  }, [])
+
+  const toggleDarkMode = () => {
+    const newDarkMode = !darkMode
+    setDarkMode(newDarkMode)
+    localStorage.setItem('darkMode', newDarkMode.toString())
+    if (newDarkMode) {
+      document.documentElement.classList.add('dark')
+    } else {
+      document.documentElement.classList.remove('dark')
+    }
+  }
+
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen bg-white dark:bg-gray-900 transition-colors">
       {/* Navigation */}
-      <nav className="sticky top-0 z-50 bg-white/95 backdrop-blur-sm border-b border-gray-200">
+      <nav className="sticky top-0 z-50 bg-white/80 dark:bg-gray-900/80 backdrop-blur-md border-b border-gray-200 dark:border-gray-700">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-16">
             <div className="flex items-center">
-              <div className="w-8 h-8 rounded-lg bg-gradient-to-r from-yellow-400 to-orange-500 flex items-center justify-center text-white font-bold mr-3">
+              <div className="w-9 h-9 rounded-xl bg-gradient-to-r from-yellow-400 to-orange-500 flex items-center justify-center text-white font-bold mr-3 shadow-lg">
                 ⚡
               </div>
-              <span className="text-lg font-bold text-gray-900">
+              <span className="text-xl font-bold text-gray-900 dark:text-white">
                 StaticFast
               </span>
             </div>
             <div className="hidden md:flex items-center space-x-8">
-              <a href="#demo" className="text-gray-600 hover:text-gray-900 transition-colors text-sm font-medium">
-                Live Demo
-              </a>
-              <a href="#features" className="text-gray-600 hover:text-gray-900 transition-colors text-sm font-medium">
+              <a href="#features" className="text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white transition-colors text-sm font-medium">
                 Features
               </a>
-              <a href="#testimonials" className="text-gray-600 hover:text-gray-900 transition-colors text-sm font-medium">
-                Reviews
+              <a href="#showcase" className="text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white transition-colors text-sm font-medium">
+                Showcase
               </a>
+              <a href="#stack" className="text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white transition-colors text-sm font-medium">
+                Tech Stack
+              </a>
+              <button
+                onClick={toggleDarkMode}
+                className="p-2 rounded-lg text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 transition-all"
+                aria-label="Toggle dark mode"
+              >
+                {darkMode ? '☀️' : '🌙'}
+              </button>
               <a
                 href="https://github.com/michalkubiak98/staticfast-boilerplate"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="bg-gradient-to-r from-yellow-400 to-orange-500 text-white px-4 py-2 rounded-lg text-sm font-medium hover:shadow-lg hover:scale-105 transition-all"
+                className="bg-gradient-to-r from-yellow-400 to-orange-500 text-white px-5 py-2.5 rounded-xl text-sm font-semibold hover:shadow-lg hover:scale-105 transition-all"
               >
-                Get StaticFast 🚀
+                Get StaticFast →
               </a>
             </div>
           </div>
         </div>
       </nav>
 
-      {/* Hero Section - ShipFast inspired */}
-      <section className="py-16 lg:py-24 bg-gradient-to-br from-yellow-50 via-orange-50 to-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      {/* Hero Section */}
+      <section className="relative py-20 lg:py-32 overflow-hidden">
+        <div className="absolute inset-0 bg-gradient-to-br from-yellow-50 via-orange-50 to-amber-50 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900"></div>
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,rgba(255,193,7,0.1),transparent)] dark:bg-[radial-gradient(ellipse_at_top,rgba(255,193,7,0.05),transparent)]"></div>
+        
+        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center">
             {/* Status Badge */}
-            <div className="inline-flex items-center px-4 py-2 bg-green-100 text-green-800 rounded-full text-sm font-medium mb-8">
+            <div className="inline-flex items-center px-4 py-2 bg-green-100 dark:bg-green-900/30 text-green-800 dark:text-green-300 rounded-full text-sm font-medium mb-8 border border-green-200 dark:border-green-800">
               <div className="w-2 h-2 bg-green-500 rounded-full mr-2 animate-pulse"></div>
-              FREE while in beta • No credit card required
+              Open Source & Free Forever
             </div>
             
             {/* Main Headline */}
-            <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold text-gray-900 mb-6 leading-tight">
-              Ship your{' '}
-              <span className="bg-gradient-to-r from-yellow-400 to-orange-500 bg-clip-text text-transparent">
-                client websites
+            <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold text-gray-900 dark:text-white mb-8 leading-tight">
+              Deploy client sites{' '}
+              <span className="bg-gradient-to-r from-yellow-500 to-orange-500 bg-clip-text text-transparent">
+                lightning fast
               </span>
-              {' '}in 30 minutes
             </h1>
             
             {/* Subheadline */}
-            <p className="text-xl md:text-2xl text-gray-600 mb-12 max-w-4xl mx-auto leading-relaxed">
-              Stop wrestling with AWS infrastructure. StaticFast gives you everything you need: 
-              <span className="font-semibold text-gray-900"> Next.js + CDK + GitHub Actions</span>
-              . Just copy, configure, deploy. 
-              <span className="bg-yellow-200 px-1 rounded">Your clients will think you&apos;re a wizard</span> ⚡
+            <p className="text-xl md:text-2xl text-gray-600 dark:text-gray-300 mb-12 max-w-4xl mx-auto leading-relaxed">
+              Complete{' '}
+              <span className="font-semibold text-gray-900 dark:text-white">Next.js + AWS CDK + GitHub Actions</span>
+              {' '}boilerplate. No more repetitive infrastructure setup.{' '}
+              <span className="bg-yellow-200 dark:bg-yellow-900/50 px-2 py-1 rounded text-gray-900 dark:text-yellow-200">
+                Copy, configure, deploy.
+              </span>
             </p>
             
             {/* CTA Buttons */}
-            <div className="flex flex-col sm:flex-row gap-4 justify-center mb-12">
+            <div className="flex flex-col sm:flex-row gap-4 justify-center mb-16">
               <a
                 href="https://github.com/michalkubiak98/staticfast-boilerplate"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center justify-center px-8 py-4 bg-gradient-to-r from-yellow-400 to-orange-500 text-white font-bold rounded-xl hover:shadow-lg hover:scale-105 transition-all text-lg"
+                className="group inline-flex items-center justify-center px-8 py-4 bg-gradient-to-r from-yellow-400 to-orange-500 text-white font-bold rounded-xl hover:shadow-xl hover:scale-105 transition-all text-lg"
               >
-                Clone StaticFast Now 🚀
+                <span>Clone Repository</span>
+                <span className="ml-2 group-hover:translate-x-1 transition-transform">🚀</span>
               </a>
               <a
-                href="#demo"
-                className="inline-flex items-center justify-center px-8 py-4 border-2 border-gray-300 text-gray-700 font-bold rounded-xl hover:bg-gray-50 transition-colors text-lg"
+                href="#showcase"
+                className="inline-flex items-center justify-center px-8 py-4 border-2 border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 font-bold rounded-xl hover:bg-gray-50 dark:hover:bg-gray-800 transition-all text-lg"
               >
-                See Live Demo
+                View Showcase
               </a>
             </div>
             
-            {/* Social Proof */}
-            <div className="flex flex-col sm:flex-row items-center justify-center gap-8 text-sm text-gray-500">
-              <div className="flex items-center">
-                <div className="flex text-yellow-400 mr-2 text-lg">★★★★★</div>
-                <span>Loved by developers</span>
+            {/* Quick Stats */}
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-8 max-w-2xl mx-auto">
+              <div className="text-center">
+                <div className="text-3xl font-bold text-gray-900 dark:text-white mb-1">~30min</div>
+                <div className="text-sm text-gray-600 dark:text-gray-400">Setup time</div>
               </div>
-              <div className="flex items-center">
-                <span className="mr-2">⚡</span>
-                <span>Deploy in minutes, not hours</span>
+              <div className="text-center">
+                <div className="text-3xl font-bold text-gray-900 dark:text-white mb-1">~$2/mo</div>
+                <div className="text-sm text-gray-600 dark:text-gray-400">Hosting cost</div>
               </div>
-              <div className="flex items-center">
-                <span className="mr-2">💰</span>
-                <span>~$2/month hosting costs</span>
+              <div className="text-center">
+                <div className="text-3xl font-bold text-gray-900 dark:text-white mb-1">0</div>
+                <div className="text-sm text-gray-600 dark:text-gray-400">Vendor lock-in</div>
               </div>
             </div>
           </div>
@@ -101,257 +138,306 @@ export default function Home() {
       </section>
 
       {/* Problem/Solution Section */}
-      <section className="py-16 lg:py-24 bg-white">
+      <section className="py-20 lg:py-32 bg-white dark:bg-gray-900">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-16">
+            <h2 className="text-4xl lg:text-5xl font-bold text-gray-900 dark:text-white mb-6">
+              Stop rebuilding the same infrastructure
+            </h2>
+            <p className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
+              Every client project shouldn&apos;t require setting up AWS from scratch. 
+              Focus on what makes each site unique, not the plumbing.
+            </p>
+          </div>
+
           <div className="grid lg:grid-cols-2 gap-16 items-center">
-            {/* Problem */}
-            <div>
-              <h2 className="text-3xl lg:text-4xl font-bold text-gray-900 mb-6">
-                Tired of explaining AWS to clients? 😤
-              </h2>
-              <div className="space-y-4 text-lg text-gray-600">
-                <p className="flex items-start">
-                  <span className="text-red-500 mr-3 text-xl">❌</span>
-                  Spending days setting up S3, CloudFront, Route53, SSL certificates...
-                </p>
-                <p className="flex items-start">
-                  <span className="text-red-500 mr-3 text-xl">❌</span>
-                  Writing the same CDK infrastructure code over and over
-                </p>
-                <p className="flex items-start">
-                  <span className="text-red-500 mr-3 text-xl">❌</span>
-                  Manually configuring GitHub Actions for every project
-                </p>
-                <p className="flex items-start">
-                  <span className="text-red-500 mr-3 text-xl">❌</span>
-                  Clients asking &quot;Why does hosting cost so much?&quot; (it doesn&apos;t, but explaining takes forever)
-                </p>
+            {/* Problems */}
+            <div className="space-y-6">
+              <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-8">The usual pain 😮‍💨</h3>
+              
+              <div className="flex items-start space-x-4">
+                <div className="flex-shrink-0 w-8 h-8 bg-red-100 dark:bg-red-900/30 rounded-full flex items-center justify-center">
+                  <span className="text-red-600 dark:text-red-400 text-sm">✗</span>
+                </div>
+                <div>
+                  <h4 className="font-semibold text-gray-900 dark:text-white mb-1">AWS infrastructure setup</h4>
+                  <p className="text-gray-600 dark:text-gray-300">S3 buckets, CloudFront distributions, SSL certificates, Route53... every single time.</p>
+                </div>
+              </div>
+              
+              <div className="flex items-start space-x-4">
+                <div className="flex-shrink-0 w-8 h-8 bg-red-100 dark:bg-red-900/30 rounded-full flex items-center justify-center">
+                  <span className="text-red-600 dark:text-red-400 text-sm">✗</span>
+                </div>
+                <div>
+                  <h4 className="font-semibold text-gray-900 dark:text-white mb-1">Deployment pipeline configuration</h4>
+                  <p className="text-gray-600 dark:text-gray-300">GitHub Actions workflows, environment variables, build processes... copy-paste from the last project.</p>
+                </div>
+              </div>
+              
+              <div className="flex items-start space-x-4">
+                <div className="flex-shrink-0 w-8 h-8 bg-red-100 dark:bg-red-900/30 rounded-full flex items-center justify-center">
+                  <span className="text-red-600 dark:text-red-400 text-sm">✗</span>
+                </div>
+                <div>
+                  <h4 className="font-semibold text-gray-900 dark:text-white mb-1">Client cost explanations</h4>
+                  <p className="text-gray-600 dark:text-gray-300">&quot;Why does hosting cost $50/month?&quot; Because traditional hosting is expensive and opaque.</p>
+                </div>
               </div>
             </div>
             
-            {/* Solution */}
-            <div>
-              <h2 className="text-3xl lg:text-4xl font-bold text-gray-900 mb-6">
-                Just copy, configure, deploy ✨
-              </h2>
-              <div className="space-y-4 text-lg text-gray-600">
-                <p className="flex items-start">
-                  <span className="text-green-500 mr-3 text-xl">✅</span>
-                  Complete AWS infrastructure as code (S3 + CloudFront + Route53)
-                </p>
-                <p className="flex items-start">
-                  <span className="text-green-500 mr-3 text-xl">✅</span>
-                  Professional Next.js template with environment variables for everything
-                </p>
-                <p className="flex items-start">
-                  <span className="text-green-500 mr-3 text-xl">✅</span>
-                  GitHub Actions that deploy automatically on push
-                </p>
-                <p className="flex items-start">
-                  <span className="text-green-500 mr-3 text-xl">✅</span>
-                  Transparent pricing: ~$2/month total. Show clients the AWS bill.
-                </p>
+            {/* Solutions */}
+            <div className="space-y-6">
+              <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-8">The StaticFast way ✨</h3>
+              
+              <div className="flex items-start space-x-4">
+                <div className="flex-shrink-0 w-8 h-8 bg-green-100 dark:bg-green-900/30 rounded-full flex items-center justify-center">
+                  <span className="text-green-600 dark:text-green-400 text-sm">✓</span>
+                </div>
+                <div>
+                  <h4 className="font-semibold text-gray-900 dark:text-white mb-1">Infrastructure as code, ready to go</h4>
+                  <p className="text-gray-600 dark:text-gray-300">Complete AWS CDK setup. One command deploys everything securely and correctly.</p>
+                </div>
+              </div>
+              
+              <div className="flex items-start space-x-4">
+                <div className="flex-shrink-0 w-8 h-8 bg-green-100 dark:bg-green-900/30 rounded-full flex items-center justify-center">
+                  <span className="text-green-600 dark:text-green-400 text-sm">✓</span>
+                </div>
+                <div>
+                  <h4 className="font-semibold text-gray-900 dark:text-white mb-1">Environment-driven customization</h4>
+                  <p className="text-gray-600 dark:text-gray-300">Change colors, content, contact info via .env file. No code changes needed.</p>
+                </div>
+              </div>
+              
+              <div className="flex items-start space-x-4">
+                <div className="flex-shrink-0 w-8 h-8 bg-green-100 dark:bg-green-900/30 rounded-full flex items-center justify-center">
+                  <span className="text-green-600 dark:text-green-400 text-sm">✓</span>
+                </div>
+                <div>
+                  <h4 className="font-semibold text-gray-900 dark:text-white mb-1">Transparent, minimal costs</h4>
+                  <p className="text-gray-600 dark:text-gray-300">Show clients the actual AWS bill: ~$2/month. No markup needed.</p>
+                </div>
               </div>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Demo Section */}
-      <section id="demo" className="py-16 lg:py-24 bg-gray-50">
+      {/* Showcase Section */}
+      <section id="showcase" className="py-20 lg:py-32 bg-gray-50 dark:bg-gray-800">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
-            <h2 className="text-3xl lg:text-4xl font-bold text-gray-900 mb-4">
-              See it in action 👀
+            <h2 className="text-4xl lg:text-5xl font-bold text-gray-900 dark:text-white mb-6">
+              This site is the showcase
             </h2>
-            <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-              This showcase website was built using StaticFast in under 30 minutes. 
-              No joke. Here&apos;s what you get:
+            <p className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
+              What you&apos;re looking at right now was built using StaticFast. 
+              Professional design, responsive layout, dark mode support - all included.
             </p>
           </div>
           
-          <div className="bg-white border border-gray-200 rounded-xl p-8 shadow-sm mb-8">
-            <div className="aspect-video bg-gray-100 rounded-lg overflow-hidden mb-6">
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img 
-                src="https://images.unsplash.com/photo-1551650975-87deedd944c3?w=1200&h=675&fit=crop&crop=entropy&cs=tinysrgb" 
-                alt="Professional website built with StaticFast"
-                className="w-full h-full object-cover"
-              />
-            </div>
-            <div className="text-center">
-              <h3 className="text-xl font-bold text-gray-900 mb-2">
-                Professional business website
-              </h3>
-              <p className="text-gray-600 mb-4">
-                Responsive design, contact forms, service sections, testimonials - everything your clients need
-              </p>
-              <div className="flex justify-center gap-4">
-                <span className="inline-flex items-center px-3 py-1 bg-green-100 text-green-800 rounded-full text-sm font-medium">
-                  ⚡ Fast loading
-                </span>
-                <span className="inline-flex items-center px-3 py-1 bg-blue-100 text-blue-800 rounded-full text-sm font-medium">
-                  📱 Mobile optimized
-                </span>
-                <span className="inline-flex items-center px-3 py-1 bg-purple-100 text-purple-800 rounded-full text-sm font-medium">
-                  🔒 HTTPS secure
-                </span>
+          {/* Screenshot/Demo */}
+          <div className="max-w-4xl mx-auto">
+            <div className="bg-white dark:bg-gray-900 rounded-2xl shadow-2xl p-8 border border-gray-200 dark:border-gray-700">
+              <div className="aspect-video bg-gradient-to-br from-gray-100 to-gray-200 dark:from-gray-800 dark:to-gray-700 rounded-xl overflow-hidden mb-6 flex items-center justify-center">
+                <div className="text-center">
+                  <div className="w-16 h-16 bg-gradient-to-r from-yellow-400 to-orange-500 rounded-2xl flex items-center justify-center text-white text-2xl font-bold mb-4 mx-auto">
+                    ⚡
+                  </div>
+                  <div className="text-2xl font-bold text-gray-700 dark:text-gray-300 mb-2">StaticFast</div>
+                  <div className="text-gray-500 dark:text-gray-400">Professional business website template</div>
+                </div>
+              </div>
+              
+              <div className="grid md:grid-cols-3 gap-4">
+                <div className="text-center">
+                  <div className="w-12 h-12 bg-green-100 dark:bg-green-900/30 rounded-xl flex items-center justify-center text-green-600 dark:text-green-400 text-xl mx-auto mb-3">⚡</div>
+                  <div className="font-semibold text-gray-900 dark:text-white text-sm">Lightning Fast</div>
+                  <div className="text-gray-600 dark:text-gray-400 text-xs">Global CDN delivery</div>
+                </div>
+                <div className="text-center">
+                  <div className="w-12 h-12 bg-blue-100 dark:bg-blue-900/30 rounded-xl flex items-center justify-center text-blue-600 dark:text-blue-400 text-xl mx-auto mb-3">📱</div>
+                  <div className="font-semibold text-gray-900 dark:text-white text-sm">Fully Responsive</div>
+                  <div className="text-gray-600 dark:text-gray-400 text-xs">Mobile-first design</div>
+                </div>
+                <div className="text-center">
+                  <div className="w-12 h-12 bg-purple-100 dark:bg-purple-900/30 rounded-xl flex items-center justify-center text-purple-600 dark:text-purple-400 text-xl mx-auto mb-3">🎨</div>
+                  <div className="font-semibold text-gray-900 dark:text-white text-sm">Customizable</div>
+                  <div className="text-gray-600 dark:text-gray-400 text-xs">Environment-driven</div>
+                </div>
               </div>
             </div>
           </div>
           
-          <div className="text-center">
+          <div className="text-center mt-12">
             <a
               href="https://github.com/michalkubiak98/staticfast-boilerplate"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center justify-center px-6 py-3 bg-gradient-to-r from-yellow-400 to-orange-500 text-white font-bold rounded-lg hover:shadow-lg hover:scale-105 transition-all"
+              className="inline-flex items-center justify-center px-6 py-3 bg-gradient-to-r from-yellow-400 to-orange-500 text-white font-semibold rounded-xl hover:shadow-lg hover:scale-105 transition-all"
             >
-              Try it yourself →
+              Clone this exact setup →
             </a>
           </div>
         </div>
       </section>
 
-      {/* Features Section - Developer focused */}
-      <section id="features" className="py-16 lg:py-24 bg-white">
+      {/* Tech Stack Section */}
+      <section id="stack" className="py-20 lg:py-32 bg-white dark:bg-gray-900">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
-            <h2 className="text-3xl lg:text-4xl font-bold text-gray-900 mb-4">
-              Everything you need, nothing you don&apos;t 🎯
+            <h2 className="text-4xl lg:text-5xl font-bold text-gray-900 dark:text-white mb-6">
+              Modern, proven stack
             </h2>
-            <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-              Built by developers, for developers. No bloat, no complexity, just results.
+            <p className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
+              Built with technologies you already know and trust. No experimental frameworks or complex configurations.
             </p>
           </div>
           
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {/* Feature 1 */}
-            <div className="bg-white border border-gray-200 rounded-xl p-6 hover:shadow-lg hover:-translate-y-1 transition-all duration-300">
-              <div className="w-12 h-12 bg-yellow-100 rounded-lg flex items-center justify-center text-yellow-600 text-2xl mb-4">
-                ⚡
-              </div>
-              <h3 className="text-lg font-semibold text-gray-900 mb-3">Deploy in 30 minutes</h3>
-              <p className="text-gray-600">
-                No more weekend deployments. Copy, configure .env, run deploy. Your clients get their site today, not next week.
+            {/* Frontend */}
+            <div className="bg-gray-50 dark:bg-gray-800 rounded-2xl p-8 border border-gray-200 dark:border-gray-700">
+              <div className="w-12 h-12 bg-blue-100 dark:bg-blue-900/30 rounded-xl flex items-center justify-center text-blue-600 dark:text-blue-400 text-2xl mb-6">⚛️</div>
+              <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-3">Next.js 15</h3>
+              <p className="text-gray-600 dark:text-gray-300 mb-4">
+                React framework with static export capability. Fast, SEO-friendly, and developer-friendly.
               </p>
+              <div className="text-sm text-gray-500 dark:text-gray-400">+ Tailwind CSS for styling</div>
             </div>
             
-            {/* Feature 2 */}
-            <div className="bg-white border border-gray-200 rounded-xl p-6 hover:shadow-lg hover:-translate-y-1 transition-all duration-300">
-              <div className="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center text-green-600 text-2xl mb-4">
-                💰
-              </div>
-              <h3 className="text-lg font-semibold text-gray-900 mb-3">Stupidly cheap hosting</h3>
-              <p className="text-gray-600">
-                ~$2/month total AWS costs. Show clients the actual bill. No markup needed. They&apos;ll think you&apos;re magic.
+            {/* Infrastructure */}
+            <div className="bg-gray-50 dark:bg-gray-800 rounded-2xl p-8 border border-gray-200 dark:border-gray-700">
+              <div className="w-12 h-12 bg-orange-100 dark:bg-orange-900/30 rounded-xl flex items-center justify-center text-orange-600 dark:text-orange-400 text-2xl mb-6">☁️</div>
+              <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-3">AWS CDK</h3>
+              <p className="text-gray-600 dark:text-gray-300 mb-4">
+                Infrastructure as code. S3 + CloudFront + Route53 + SSL certificates, all configured securely.
               </p>
+              <div className="text-sm text-gray-500 dark:text-gray-400">Complete TypeScript definitions</div>
             </div>
             
-            {/* Feature 3 */}
-            <div className="bg-white border border-gray-200 rounded-xl p-6 hover:shadow-lg hover:-translate-y-1 transition-all duration-300">
-              <div className="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center text-blue-600 text-2xl mb-4">
-                🤖
-              </div>
-              <h3 className="text-lg font-semibold text-gray-900 mb-3">Claude Code integration</h3>
-              <p className="text-gray-600">
-                Built specifically for Claude Code. AI handles the complex stuff. You handle the creative decisions.
+            {/* Deployment */}
+            <div className="bg-gray-50 dark:bg-gray-800 rounded-2xl p-8 border border-gray-200 dark:border-gray-700">
+              <div className="w-12 h-12 bg-green-100 dark:bg-green-900/30 rounded-xl flex items-center justify-center text-green-600 dark:text-green-400 text-2xl mb-6">🚀</div>
+              <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-3">GitHub Actions</h3>
+              <p className="text-gray-600 dark:text-gray-300 mb-4">
+                Automated deployments on every push. Build, test, and deploy without manual intervention.
               </p>
+              <div className="text-sm text-gray-500 dark:text-gray-400">Pre-configured workflows</div>
             </div>
             
-            {/* Feature 4 */}
-            <div className="bg-white border border-gray-200 rounded-xl p-6 hover:shadow-lg hover:-translate-y-1 transition-all duration-300">
-              <div className="w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center text-purple-600 text-2xl mb-4">
-                🏗️
-              </div>
-              <h3 className="text-lg font-semibold text-gray-900 mb-3">Production-ready infrastructure</h3>
-              <p className="text-gray-600">
-                S3 + CloudFront + Route53 + SSL. All configured securely. No &quot;it works on my machine&quot; problems.
+            {/* AI Integration */}
+            <div className="bg-gray-50 dark:bg-gray-800 rounded-2xl p-8 border border-gray-200 dark:border-gray-700">
+              <div className="w-12 h-12 bg-purple-100 dark:bg-purple-900/30 rounded-xl flex items-center justify-center text-purple-600 dark:text-purple-400 text-2xl mb-6">🤖</div>
+              <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-3">Claude Code Ready</h3>
+              <p className="text-gray-600 dark:text-gray-300 mb-4">
+                Designed specifically for Claude Code workflows. AI can handle deployment, customization, and troubleshooting.
               </p>
+              <div className="text-sm text-gray-500 dark:text-gray-400">Smart prompts included</div>
             </div>
             
-            {/* Feature 5 */}
-            <div className="bg-white border border-gray-200 rounded-xl p-6 hover:shadow-lg hover:-translate-y-1 transition-all duration-300">
-              <div className="w-12 h-12 bg-red-100 rounded-lg flex items-center justify-center text-red-600 text-2xl mb-4">
-                🚀
-              </div>
-              <h3 className="text-lg font-semibold text-gray-900 mb-3">Auto-deploy on push</h3>
-              <p className="text-gray-600">
-                GitHub Actions configured. Push to main = instant deploy. Your clients see changes immediately.
+            {/* Configuration */}
+            <div className="bg-gray-50 dark:bg-gray-800 rounded-2xl p-8 border border-gray-200 dark:border-gray-700">
+              <div className="w-12 h-12 bg-yellow-100 dark:bg-yellow-900/30 rounded-xl flex items-center justify-center text-yellow-600 dark:text-yellow-400 text-2xl mb-6">⚙️</div>
+              <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-3">Environment Driven</h3>
+              <p className="text-gray-600 dark:text-gray-300 mb-4">
+                Everything configurable via .env files. Colors, content, contact info - no code changes needed.
               </p>
+              <div className="text-sm text-gray-500 dark:text-gray-400">TypeScript support included</div>
             </div>
             
-            {/* Feature 6 */}
-            <div className="bg-white border border-gray-200 rounded-xl p-6 hover:shadow-lg hover:-translate-y-1 transition-all duration-300">
-              <div className="w-12 h-12 bg-indigo-100 rounded-lg flex items-center justify-center text-indigo-600 text-2xl mb-4">
-                🎨
-              </div>
-              <h3 className="text-lg font-semibold text-gray-900 mb-3">Environment-driven design</h3>
-              <p className="text-gray-600">
-                Colors, content, contact info - all configurable via .env. No code changes needed for new clients.
+            {/* Documentation */}
+            <div className="bg-gray-50 dark:bg-gray-800 rounded-2xl p-8 border border-gray-200 dark:border-gray-700">
+              <div className="w-12 h-12 bg-indigo-100 dark:bg-indigo-900/30 rounded-xl flex items-center justify-center text-indigo-600 dark:text-indigo-400 text-2xl mb-6">📚</div>
+              <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-3">Complete Docs</h3>
+              <p className="text-gray-600 dark:text-gray-300 mb-4">
+                Step-by-step guides, troubleshooting, and examples. Get started quickly with clear instructions.
               </p>
+              <div className="text-sm text-gray-500 dark:text-gray-400">Beginner to advanced</div>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Testimonials Section */}
-      <section id="testimonials" className="py-16 lg:py-24 bg-gray-50">
+      {/* Features Section */}
+      <section id="features" className="py-20 lg:py-32 bg-gray-50 dark:bg-gray-800">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
-            <h2 className="text-3xl lg:text-4xl font-bold text-gray-900 mb-4">
-              Early testers are loving it 💙
+            <h2 className="text-4xl lg:text-5xl font-bold text-gray-900 dark:text-white mb-6">
+              Everything you need, nothing extra
             </h2>
-            <p className="text-lg text-gray-600">
-              Real feedback from developers using StaticFast
+            <p className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
+              A focused toolkit for professional client websites. No bloat, no unnecessary complexity.
             </p>
           </div>
           
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-            <div className="bg-white border border-gray-200 rounded-xl p-6">
-              <div className="flex text-yellow-400 mb-4">★★★★★</div>
-              <p className="text-gray-600 mb-4">
-                &ldquo;Finally! No more copying CDK files between projects. This saved me literally hours on my last client site.&rdquo;
-              </p>
-              <div className="flex items-center">
-                <div className="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center text-blue-600 font-semibold mr-3">
-                  A
+          <div className="grid md:grid-cols-2 gap-12">
+            <div>
+              <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-8">Developer Experience</h3>
+              <div className="space-y-6">
+                <div className="flex items-start space-x-4">
+                  <div className="flex-shrink-0 w-8 h-8 bg-yellow-100 dark:bg-yellow-900/30 rounded-full flex items-center justify-center">
+                    <span className="text-yellow-600 dark:text-yellow-400 text-sm">⚡</span>
+                  </div>
+                  <div>
+                    <h4 className="font-semibold text-gray-900 dark:text-white mb-1">Quick setup</h4>
+                    <p className="text-gray-600 dark:text-gray-300">Clone, configure .env, deploy. Get a client site live in 30 minutes.</p>
+                  </div>
                 </div>
-                <div>
-                  <div className="font-semibold text-gray-900">Alex Chen</div>
-                  <div className="text-sm text-gray-500">Freelance Developer</div>
+
+                <div className="flex items-start space-x-4">
+                  <div className="flex-shrink-0 w-8 h-8 bg-blue-100 dark:bg-blue-900/30 rounded-full flex items-center justify-center">
+                    <span className="text-blue-600 dark:text-blue-400 text-sm">🔧</span>
+                  </div>
+                  <div>
+                    <h4 className="font-semibold text-gray-900 dark:text-white mb-1">TypeScript throughout</h4>
+                    <p className="text-gray-600 dark:text-gray-300">Full type safety in frontend, infrastructure, and configuration.</p>
+                  </div>
+                </div>
+
+                <div className="flex items-start space-x-4">
+                  <div className="flex-shrink-0 w-8 h-8 bg-green-100 dark:bg-green-900/30 rounded-full flex items-center justify-center">
+                    <span className="text-green-600 dark:text-green-400 text-sm">📖</span>
+                  </div>
+                  <div>
+                    <h4 className="font-semibold text-gray-900 dark:text-white mb-1">Comprehensive docs</h4>
+                    <p className="text-gray-600 dark:text-gray-300">Step-by-step guides for setup, customization, and troubleshooting.</p>
+                  </div>
                 </div>
               </div>
             </div>
-            
-            <div className="bg-white border border-gray-200 rounded-xl p-6">
-              <div className="flex text-yellow-400 mb-4">★★★★★</div>
-              <p className="text-gray-600 mb-4">
-                &ldquo;My clients are amazed at how fast I can deliver. The $2/month hosting cost makes them think I&apos;m a wizard.&rdquo;
-              </p>
-              <div className="flex items-center">
-                <div className="w-10 h-10 bg-green-100 rounded-full flex items-center justify-center text-green-600 font-semibold mr-3">
-                  S
+
+            <div>
+              <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-8">Client Benefits</h3>
+              <div className="space-y-6">
+                <div className="flex items-start space-x-4">
+                  <div className="flex-shrink-0 w-8 h-8 bg-purple-100 dark:bg-purple-900/30 rounded-full flex items-center justify-center">
+                    <span className="text-purple-600 dark:text-purple-400 text-sm">💰</span>
+                  </div>
+                  <div>
+                    <h4 className="font-semibold text-gray-900 dark:text-white mb-1">Transparent costs</h4>
+                    <p className="text-gray-600 dark:text-gray-300">~$2/month AWS hosting. Show clients the actual bill.</p>
+                  </div>
                 </div>
-                <div>
-                  <div className="font-semibold text-gray-900">Sarah Kim</div>
-                  <div className="text-sm text-gray-500">Agency Owner</div>
+
+                <div className="flex items-start space-x-4">
+                  <div className="flex-shrink-0 w-8 h-8 bg-orange-100 dark:bg-orange-900/30 rounded-full flex items-center justify-center">
+                    <span className="text-orange-600 dark:text-orange-400 text-sm">🚀</span>
+                  </div>
+                  <div>
+                    <h4 className="font-semibold text-gray-900 dark:text-white mb-1">Fast & reliable</h4>
+                    <p className="text-gray-600 dark:text-gray-300">Global CDN, SSL included, 99.9% uptime backed by AWS.</p>
+                  </div>
                 </div>
-              </div>
-            </div>
-            
-            <div className="bg-white border border-gray-200 rounded-xl p-6">
-              <div className="flex text-yellow-400 mb-4">★★★★★</div>
-              <p className="text-gray-600 mb-4">
-                &ldquo;Perfect for small business clients. Professional results without the enterprise complexity.&rdquo;
-              </p>
-              <div className="flex items-center">
-                <div className="w-10 h-10 bg-purple-100 rounded-full flex items-center justify-center text-purple-600 font-semibold mr-3">
-                  M
-                </div>
-                <div>
-                  <div className="font-semibold text-gray-900">Mike Johnson</div>
-                  <div className="text-sm text-gray-500">Full-stack Developer</div>
+
+                <div className="flex items-start space-x-4">
+                  <div className="flex-shrink-0 w-8 h-8 bg-red-100 dark:bg-red-900/30 rounded-full flex items-center justify-center">
+                    <span className="text-red-600 dark:text-red-400 text-sm">🔒</span>
+                  </div>
+                  <div>
+                    <h4 className="font-semibold text-gray-900 dark:text-white mb-1">Secure by default</h4>
+                    <p className="text-gray-600 dark:text-gray-300">HTTPS everywhere, private S3 buckets, AWS security best practices.</p>
+                  </div>
                 </div>
               </div>
             </div>
@@ -360,24 +446,28 @@ export default function Home() {
       </section>
 
       {/* CTA Section */}
-      <section className="py-16 lg:py-24 bg-gradient-to-br from-yellow-400 via-orange-500 to-red-500">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h2 className="text-3xl lg:text-4xl font-bold text-white mb-6">
-            Ready to ship faster? 🚀
+      <section className="relative py-20 lg:py-32 overflow-hidden">
+        <div className="absolute inset-0 bg-gradient-to-r from-yellow-400 via-orange-500 to-red-500"></div>
+        <div className="absolute inset-0 bg-black/10"></div>
+        
+        <div className="relative max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          <h2 className="text-4xl lg:text-5xl font-bold text-white mb-8">
+            Ready to streamline your workflow?
           </h2>
-          <p className="text-xl text-white/90 mb-12 max-w-2xl mx-auto">
-            Join developers who are already shipping client websites in minutes, not weeks. 
-            <span className="font-bold">It&apos;s free while in beta</span> - no credit card, no catch.
+          <p className="text-xl text-white/90 mb-12 max-w-2xl mx-auto leading-relaxed">
+            Stop setting up the same infrastructure for every client. 
+            <span className="font-bold"> Clone StaticFast and focus on what makes each project unique.</span>
           </p>
           
-          <div className="flex flex-col sm:flex-row gap-4 justify-center mb-8">
+          <div className="flex flex-col sm:flex-row gap-6 justify-center mb-8">
             <a
               href="https://github.com/michalkubiak98/staticfast-boilerplate"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center justify-center px-8 py-4 bg-white text-gray-900 font-bold rounded-xl hover:shadow-lg hover:scale-105 transition-all text-lg"
+              className="group inline-flex items-center justify-center px-8 py-4 bg-white text-gray-900 font-bold rounded-xl hover:shadow-2xl hover:scale-105 transition-all text-lg"
             >
-              Clone on GitHub 🚀
+              <span>Get StaticFast</span>
+              <span className="ml-2 group-hover:translate-x-1 transition-transform">→</span>
             </a>
             <a
               href="https://github.com/michalkubiak98/staticfast-boilerplate/blob/master/FIRST-STEPS.md"
@@ -385,65 +475,69 @@ export default function Home() {
               rel="noopener noreferrer"
               className="inline-flex items-center justify-center px-8 py-4 border-2 border-white text-white font-bold rounded-xl hover:bg-white hover:text-gray-900 transition-all text-lg"
             >
-              Read the Docs
+              Read Documentation
             </a>
           </div>
           
           <p className="text-sm text-white/80">
-            ⭐ Star the repo if you find it useful • Built with ❤️ for the dev community
+            ⭐ Star the repo • Open source & free forever • Built for the dev community
           </p>
         </div>
       </section>
 
       {/* Footer */}
-      <footer className="bg-gray-900 text-white">
-        <div className="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:px-8">
+      <footer className="bg-gray-900 dark:bg-black text-white">
+        <div className="max-w-7xl mx-auto py-16 px-4 sm:px-6 lg:px-8">
           <div className="text-center">
             <div className="mb-8">
-              <div className="flex items-center justify-center mb-4">
-                <div className="w-8 h-8 rounded-lg bg-gradient-to-r from-yellow-400 to-orange-500 flex items-center justify-center text-white font-bold mr-3">
+              <div className="flex items-center justify-center mb-6">
+                <div className="w-10 h-10 rounded-xl bg-gradient-to-r from-yellow-400 to-orange-500 flex items-center justify-center text-white font-bold mr-4 shadow-lg">
                   ⚡
                 </div>
-                <h3 className="text-lg font-bold text-white">
+                <h3 className="text-2xl font-bold text-white">
                   StaticFast
                 </h3>
               </div>
-              <p className="text-gray-400 max-w-md mx-auto">
-                Ship professional client websites in 30 minutes. Built by developers, for developers.
+              <p className="text-gray-400 max-w-md mx-auto leading-relaxed">
+                Professional client websites deployed fast. 
+                Stop rebuilding infrastructure, start shipping features.
               </p>
             </div>
             
-            <div className="flex flex-wrap justify-center gap-8 mb-8 text-sm">
+            <div className="flex flex-wrap justify-center gap-8 mb-12 text-sm">
               <a 
                 href="https://github.com/michalkubiak98/staticfast-boilerplate" 
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-gray-400 hover:text-white transition-colors"
+                className="text-gray-400 hover:text-white transition-colors flex items-center"
               >
-                🚀 GitHub Repository
+                <span className="mr-2">📚</span>
+                Repository
               </a>
               <a 
                 href="https://github.com/michalkubiak98/staticfast-boilerplate/blob/master/FIRST-STEPS.md" 
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-gray-400 hover:text-white transition-colors"
+                className="text-gray-400 hover:text-white transition-colors flex items-center"
               >
-                📚 Documentation
+                <span className="mr-2">📖</span>
+                Documentation
               </a>
               <a 
                 href="https://github.com/michalkubiak98/staticfast-boilerplate/issues" 
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-gray-400 hover:text-white transition-colors"
+                className="text-gray-400 hover:text-white transition-colors flex items-center"
               >
-                🐛 Report Issues
+                <span className="mr-2">🐛</span>
+                Issues
               </a>
             </div>
             
-            <div className="border-t border-gray-800 pt-8 text-sm text-gray-400">
+            <div className="border-t border-gray-800 pt-8 flex flex-col md:flex-row justify-between items-center text-sm text-gray-400">
               <p>&copy; 2025 StaticFast. Open source and free forever.</p>
-              <p className="mt-2">
-                Made with ⚡ by developers who got tired of setting up the same infrastructure over and over
+              <p className="mt-4 md:mt-0">
+                Made by developers who got tired of repetitive infrastructure setup
               </p>
             </div>
           </div>
