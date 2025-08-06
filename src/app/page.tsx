@@ -639,7 +639,7 @@ export default function Home() {
             <div className="border-t border-gray-800 pt-8 flex flex-col md:flex-row justify-between items-center text-sm text-gray-400">
               <p>&copy; 2025 StaticFast. Open source and free forever.</p>
               <p className="mt-4 md:mt-0">
-                Made by developers who got tired of repetitive infrastructure setup
+                Made by developers who got tired of repetitive infrastructure setup | v1.0
               </p>
             </div>
           </div>
