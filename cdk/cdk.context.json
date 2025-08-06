@@ -1,1 +1,6 @@
-{}
+{
+  "hosted-zone:account=680036080452:domainName=staticfast.app:region=us-east-1": {
+    "Id": "/hostedzone/Z0726504KJQ3MCSR0Q9C",
+    "Name": "staticfast.app."
+  }
+}

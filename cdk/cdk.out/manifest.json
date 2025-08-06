@@ -18,7 +18,7 @@
         "validateOnSynth": false,
         "assumeRoleArn": "arn:${AWS::Partition}:iam::680036080452:role/cdk-hnb659fds-deploy-role-680036080452-us-east-1",
         "cloudFormationExecutionRoleArn": "arn:${AWS::Partition}:iam::680036080452:role/cdk-hnb659fds-cfn-exec-role-680036080452-us-east-1",
-        "stackTemplateAssetObjectUrl": "s3://cdk-hnb659fds-assets-680036080452-us-east-1/b7138fcdb556eb11596c04988c28180bdb527e0ad7ff94a3ef000eab88d7ccfe.json",
+        "stackTemplateAssetObjectUrl": "s3://cdk-hnb659fds-assets-680036080452-us-east-1/14968b9e706849c141974d637e501c376ae047073191401875125a2dcc1ba227.json",
         "requiresBootstrapStackVersion": 6,
         "bootstrapStackVersionSsmParameter": "/cdk-bootstrap/hnb659fds/version",
         "additionalDependencies": [
@@ -82,10 +82,34 @@
             "data": "OAC5B452445"
           }
         ],
+        "/staticfast-showcase-stack/Certificate/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "Certificate4E7ABB08"
+          }
+        ],
         "/staticfast-showcase-stack/Distribution/Resource": [
           {
             "type": "aws:cdk:logicalId",
             "data": "Distribution830FAC52"
+          }
+        ],
+        "/staticfast-showcase-stack/ARecord/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "ARecordE7B57761"
+          }
+        ],
+        "/staticfast-showcase-stack/AWSCloudFrontPartitionHostedZoneIdMap": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "AWSCloudFrontPartitionHostedZoneIdMap"
+          }
+        ],
+        "/staticfast-showcase-stack/WWWARecord/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "WWWARecord1A0BFA03"
           }
         ],
         "/staticfast-showcase-stack/BucketName": [
@@ -104,6 +128,12 @@
           {
             "type": "aws:cdk:logicalId",
             "data": "DistributionDomainName"
+          }
+        ],
+        "/staticfast-showcase-stack/WebsiteUrl": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "WebsiteUrl"
           }
         ],
         "/staticfast-showcase-stack/CDKMetadata/Default": [

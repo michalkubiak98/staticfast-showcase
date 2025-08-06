@@ -125,8 +125,8 @@ export default function Home() {
                 <div className="text-sm text-gray-600 dark:text-gray-400">Setup time</div>
               </div>
               <div className="text-center">
-                <div className="text-3xl font-bold text-gray-900 dark:text-white mb-1">~$2/mo</div>
-                <div className="text-sm text-gray-600 dark:text-gray-400">Hosting cost</div>
+                <div className="text-3xl font-bold text-gray-900 dark:text-white mb-1">$0.50+</div>
+                <div className="text-sm text-gray-600 dark:text-gray-400">Monthly cost</div>
               </div>
               <div className="text-center">
                 <div className="text-3xl font-bold text-gray-900 dark:text-white mb-1">0</div>
@@ -222,7 +222,7 @@ export default function Home() {
                 </div>
                 <div>
                   <h4 className="font-semibold text-gray-900 dark:text-white mb-1">Transparent, minimal costs</h4>
-                  <p className="text-gray-600 dark:text-gray-300">Show clients the actual AWS bill: ~$2/month. No markup needed.</p>
+                  <p className="text-gray-600 dark:text-gray-300">Show clients the actual AWS bill: $0.50-3/month. No markup needed.</p>
                 </div>
               </div>
             </div>
@@ -351,7 +351,7 @@ export default function Home() {
                     </li>
                     <li className="flex items-start">
                       <span className="text-blue-500 mr-2 mt-0.5">•</span>
-                      ~$2/month hosting costs (transparent)
+                      $0.50-3/month hosting costs (transparent)
                     </li>
                   </ul>
                 </div>
@@ -518,7 +518,7 @@ export default function Home() {
                   </div>
                   <div>
                     <h4 className="font-semibold text-gray-900 dark:text-white mb-1">Transparent costs</h4>
-                    <p className="text-gray-600 dark:text-gray-300">~$2/month AWS hosting. Show clients the actual bill.</p>
+                    <p className="text-gray-600 dark:text-gray-300">$0.50-3/month AWS hosting. Show clients the actual bill.</p>
                   </div>
                 </div>
 

@@ -278,10 +278,43 @@
     "aws:cdk:path": "staticfast-showcase-stack/OAC/Resource"
    }
   },
+  "Certificate4E7ABB08": {
+   "Type": "AWS::CertificateManager::Certificate",
+   "Properties": {
+    "DomainName": "staticfast.app",
+    "DomainValidationOptions": [
+     {
+      "DomainName": "staticfast.app",
+      "HostedZoneId": "Z0726504KJQ3MCSR0Q9C"
+     },
+     {
+      "DomainName": "www.staticfast.app",
+      "HostedZoneId": "Z0726504KJQ3MCSR0Q9C"
+     }
+    ],
+    "SubjectAlternativeNames": [
+     "www.staticfast.app"
+    ],
+    "Tags": [
+     {
+      "Key": "Name",
+      "Value": "staticfast-showcase-stack/Certificate"
+     }
+    ],
+    "ValidationMethod": "DNS"
+   },
+   "Metadata": {
+    "aws:cdk:path": "staticfast-showcase-stack/Certificate/Resource"
+   }
+  },
   "Distribution830FAC52": {
    "Type": "AWS::CloudFront::Distribution",
    "Properties": {
     "DistributionConfig": {
+     "Aliases": [
+      "staticfast.app",
+      "www.staticfast.app"
+     ],
      "Comment": "StaticFast Website",
      "CustomErrorResponses": [
       {
@@ -343,20 +376,93 @@
         "OriginAccessIdentity": ""
        }
       }
-     ]
+     ],
+     "ViewerCertificate": {
+      "AcmCertificateArn": {
+       "Ref": "Certificate4E7ABB08"
+      },
+      "MinimumProtocolVersion": "TLSv1.2_2021",
+      "SslSupportMethod": "sni-only"
+     }
     }
    },
    "Metadata": {
     "aws:cdk:path": "staticfast-showcase-stack/Distribution/Resource"
    }
   },
+  "ARecordE7B57761": {
+   "Type": "AWS::Route53::RecordSet",
+   "Properties": {
+    "AliasTarget": {
+     "DNSName": {
+      "Fn::GetAtt": [
+       "Distribution830FAC52",
+       "DomainName"
+      ]
+     },
+     "HostedZoneId": {
+      "Fn::FindInMap": [
+       "AWSCloudFrontPartitionHostedZoneIdMap",
+       {
+        "Ref": "AWS::Partition"
+       },
+       "zoneId"
+      ]
+     }
+    },
+    "HostedZoneId": "Z0726504KJQ3MCSR0Q9C",
+    "Name": "staticfast.app.",
+    "Type": "A"
+   },
+   "Metadata": {
+    "aws:cdk:path": "staticfast-showcase-stack/ARecord/Resource"
+   }
+  },
+  "WWWARecord1A0BFA03": {
+   "Type": "AWS::Route53::RecordSet",
+   "Properties": {
+    "AliasTarget": {
+     "DNSName": {
+      "Fn::GetAtt": [
+       "Distribution830FAC52",
+       "DomainName"
+      ]
+     },
+     "HostedZoneId": {
+      "Fn::FindInMap": [
+       "AWSCloudFrontPartitionHostedZoneIdMap",
+       {
+        "Ref": "AWS::Partition"
+       },
+       "zoneId"
+      ]
+     }
+    },
+    "HostedZoneId": "Z0726504KJQ3MCSR0Q9C",
+    "Name": "www.staticfast.app.",
+    "Type": "A"
+   },
+   "Metadata": {
+    "aws:cdk:path": "staticfast-showcase-stack/WWWARecord/Resource"
+   }
+  },
   "CDKMetadata": {
    "Type": "AWS::CDK::Metadata",
    "Properties": {
-    "Analytics": "v2:deflate64:H4sIAAAAAAAA/22NwU7DQAxEv6X3jQnpAXFsg7hSNR+Ats42cpPaaG23QlH+HYUABYnTvBmPPBXcP5RQruJVC2z7YqADjI1F7EO86uuoaxi3jn2yUB/5ixbZyUD4fosXPwUcxNtjFjYYn53RSHhu/XCzfsnUEW8Qk2otbFmGufFf/ERqmQ7+/eW3n6ZQu5qc90nFM6a5cOM/p12WC7Upb6OmsFFN1ljsiLvPYbc3tymwtAlOenepKniEcnVSoiI7G50T7Bf9AEGHfzcyAQAA"
+    "Analytics": "v2:deflate64:H4sIAAAAAAAA/21PzWqDQBB+ltzXrVVK6dFYeisN+gBls05kou7IzmxCWfbdi9g0Fnr6/gem0I/Puc535sqZ7YZsxKOOrRg7KHPlz8iljvtgBxBVn9wPW+FAI9qvu73qpOxIoTt5cqLjW3BWkNzS+uVt+eGxR1dZC8w1OfE0Lo3/7Fdk8XgMtytbnZQFL3hCawQm40wPXsf67i2DjUzKUxB4KnWsGrDku6WwshYkJVUHFpoaYArewpre+J/o4OmCHfi9YVAVM0grpkfXq+343czz4i2/BZmDJOWoA33mh0tR6Bed786MmPngBCfQzYrflb7DD5UBAAA="
    },
    "Metadata": {
     "aws:cdk:path": "staticfast-showcase-stack/CDKMetadata/Default"
+   }
+  }
+ },
+ "Mappings": {
+  "AWSCloudFrontPartitionHostedZoneIdMap": {
+   "aws": {
+    "zoneId": "Z2FDTNDATAQYW2"
+   },
+   "aws-cn": {
+    "zoneId": "Z3RFFRIM2A3IF5"
    }
   }
  },
@@ -389,6 +495,13 @@
    },
    "Export": {
     "Name": "staticfast-showcase-distribution-domain"
+   }
+  },
+  "WebsiteUrl": {
+   "Description": "Website URL",
+   "Value": "https://staticfast.app",
+   "Export": {
+    "Name": "staticfast-showcase-website-url"
    }
   }
  },

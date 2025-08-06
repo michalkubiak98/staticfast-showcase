@@ -310,6 +310,58 @@
               "version": "2.170.0"
             }
           },
+          "HostedZone": {
+            "id": "HostedZone",
+            "path": "staticfast-showcase-stack/HostedZone",
+            "constructInfo": {
+              "fqn": "aws-cdk-lib.Resource",
+              "version": "2.170.0"
+            }
+          },
+          "Certificate": {
+            "id": "Certificate",
+            "path": "staticfast-showcase-stack/Certificate",
+            "children": {
+              "Resource": {
+                "id": "Resource",
+                "path": "staticfast-showcase-stack/Certificate/Resource",
+                "attributes": {
+                  "aws:cdk:cloudformation:type": "AWS::CertificateManager::Certificate",
+                  "aws:cdk:cloudformation:props": {
+                    "domainName": "staticfast.app",
+                    "domainValidationOptions": [
+                      {
+                        "domainName": "staticfast.app",
+                        "hostedZoneId": "Z0726504KJQ3MCSR0Q9C"
+                      },
+                      {
+                        "domainName": "www.staticfast.app",
+                        "hostedZoneId": "Z0726504KJQ3MCSR0Q9C"
+                      }
+                    ],
+                    "subjectAlternativeNames": [
+                      "www.staticfast.app"
+                    ],
+                    "tags": [
+                      {
+                        "key": "Name",
+                        "value": "staticfast-showcase-stack/Certificate"
+                      }
+                    ],
+                    "validationMethod": "DNS"
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.aws_certificatemanager.CfnCertificate",
+                  "version": "2.170.0"
+                }
+              }
+            },
+            "constructInfo": {
+              "fqn": "aws-cdk-lib.aws_certificatemanager.Certificate",
+              "version": "2.170.0"
+            }
+          },
           "Distribution": {
             "id": "Distribution",
             "path": "staticfast-showcase-stack/Distribution",
@@ -376,6 +428,10 @@
                           }
                         ]
                       },
+                      "aliases": [
+                        "staticfast.app",
+                        "www.staticfast.app"
+                      ],
                       "comment": "StaticFast Website",
                       "customErrorResponses": [
                         {
@@ -391,7 +447,14 @@
                       ],
                       "defaultRootObject": "index.html",
                       "httpVersion": "http2",
-                      "ipv6Enabled": true
+                      "ipv6Enabled": true,
+                      "viewerCertificate": {
+                        "acmCertificateArn": {
+                          "Ref": "Certificate4E7ABB08"
+                        },
+                        "minimumProtocolVersion": "TLSv1.2_2021",
+                        "sslSupportMethod": "sni-only"
+                      }
                     }
                   }
                 },
@@ -403,6 +466,100 @@
             },
             "constructInfo": {
               "fqn": "aws-cdk-lib.aws_cloudfront.Distribution",
+              "version": "2.170.0"
+            }
+          },
+          "ARecord": {
+            "id": "ARecord",
+            "path": "staticfast-showcase-stack/ARecord",
+            "children": {
+              "Resource": {
+                "id": "Resource",
+                "path": "staticfast-showcase-stack/ARecord/Resource",
+                "attributes": {
+                  "aws:cdk:cloudformation:type": "AWS::Route53::RecordSet",
+                  "aws:cdk:cloudformation:props": {
+                    "aliasTarget": {
+                      "hostedZoneId": {
+                        "Fn::FindInMap": [
+                          "AWSCloudFrontPartitionHostedZoneIdMap",
+                          {
+                            "Ref": "AWS::Partition"
+                          },
+                          "zoneId"
+                        ]
+                      },
+                      "dnsName": {
+                        "Fn::GetAtt": [
+                          "Distribution830FAC52",
+                          "DomainName"
+                        ]
+                      }
+                    },
+                    "hostedZoneId": "Z0726504KJQ3MCSR0Q9C",
+                    "name": "staticfast.app.",
+                    "type": "A"
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.aws_route53.CfnRecordSet",
+                  "version": "2.170.0"
+                }
+              }
+            },
+            "constructInfo": {
+              "fqn": "aws-cdk-lib.aws_route53.ARecord",
+              "version": "2.170.0"
+            }
+          },
+          "AWSCloudFrontPartitionHostedZoneIdMap": {
+            "id": "AWSCloudFrontPartitionHostedZoneIdMap",
+            "path": "staticfast-showcase-stack/AWSCloudFrontPartitionHostedZoneIdMap",
+            "constructInfo": {
+              "fqn": "aws-cdk-lib.CfnMapping",
+              "version": "2.170.0"
+            }
+          },
+          "WWWARecord": {
+            "id": "WWWARecord",
+            "path": "staticfast-showcase-stack/WWWARecord",
+            "children": {
+              "Resource": {
+                "id": "Resource",
+                "path": "staticfast-showcase-stack/WWWARecord/Resource",
+                "attributes": {
+                  "aws:cdk:cloudformation:type": "AWS::Route53::RecordSet",
+                  "aws:cdk:cloudformation:props": {
+                    "aliasTarget": {
+                      "hostedZoneId": {
+                        "Fn::FindInMap": [
+                          "AWSCloudFrontPartitionHostedZoneIdMap",
+                          {
+                            "Ref": "AWS::Partition"
+                          },
+                          "zoneId"
+                        ]
+                      },
+                      "dnsName": {
+                        "Fn::GetAtt": [
+                          "Distribution830FAC52",
+                          "DomainName"
+                        ]
+                      }
+                    },
+                    "hostedZoneId": "Z0726504KJQ3MCSR0Q9C",
+                    "name": "www.staticfast.app.",
+                    "type": "A"
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.aws_route53.CfnRecordSet",
+                  "version": "2.170.0"
+                }
+              }
+            },
+            "constructInfo": {
+              "fqn": "aws-cdk-lib.aws_route53.ARecord",
               "version": "2.170.0"
             }
           },
@@ -425,6 +582,14 @@
           "DistributionDomainName": {
             "id": "DistributionDomainName",
             "path": "staticfast-showcase-stack/DistributionDomainName",
+            "constructInfo": {
+              "fqn": "aws-cdk-lib.CfnOutput",
+              "version": "2.170.0"
+            }
+          },
+          "WebsiteUrl": {
+            "id": "WebsiteUrl",
+            "path": "staticfast-showcase-stack/WebsiteUrl",
             "constructInfo": {
               "fqn": "aws-cdk-lib.CfnOutput",
               "version": "2.170.0"
