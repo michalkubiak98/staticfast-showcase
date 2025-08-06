@@ -144,61 +144,110 @@ export default function Home() {
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center">
             {/* Status Badge */}
-            <div className="inline-flex items-center px-4 py-2 bg-green-100 dark:bg-green-900/30 text-green-800 dark:text-green-300 rounded-full text-sm font-medium mb-8 border border-green-200 dark:border-green-800">
+            <div className="inline-flex items-center px-4 py-2 bg-gradient-to-r from-green-50 to-emerald-50 dark:from-green-900/20 dark:to-emerald-900/20 text-green-800 dark:text-green-300 rounded-full text-sm font-medium mb-8 border border-green-200 dark:border-green-800 shadow-sm">
               <div className="w-2 h-2 bg-green-500 rounded-full mr-2 animate-pulse"></div>
-              Open Source & Free Forever
+              Open Source & MIT Licensed
             </div>
             
             {/* Main Headline */}
-            <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold text-gray-900 dark:text-white mb-8 leading-tight">
-              Deploy client sites{' '}
+            <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold text-gray-900 dark:text-white mb-6 leading-tight">
+              Ship client websites in{' '}
               <span className="bg-gradient-to-r from-amber-500 via-orange-500 to-red-500 bg-clip-text text-transparent">
-                lightning fast
+                30 minutes
               </span>
             </h1>
             
+            {/* Value Props */}
+            <div className="flex flex-wrap justify-center gap-4 mb-8 text-lg font-medium">
+              <span className="text-gray-700 dark:text-gray-300">⚡ 5-minute setup</span>
+              <span className="text-gray-400 dark:text-gray-600">•</span>
+              <span className="text-gray-700 dark:text-gray-300">💰 $0.50/month hosting</span>
+              <span className="text-gray-400 dark:text-gray-600">•</span>
+              <span className="text-gray-700 dark:text-gray-300">🚀 99.9% uptime</span>
+            </div>
+            
             {/* Subheadline */}
-            <p className="text-xl md:text-2xl text-gray-600 dark:text-gray-300 mb-12 max-w-4xl mx-auto leading-relaxed">
-              Complete{' '}
-              <span className="font-semibold text-gray-900 dark:text-white">Next.js + AWS CDK + GitHub Actions</span>
-              {' '}boilerplate. No more repetitive infrastructure setup.{' '}
-              <span className="bg-amber-200 dark:bg-amber-900/50 px-3 py-1 rounded-lg text-gray-900 dark:text-amber-200 font-medium">
-                Copy, configure, deploy.
-              </span>
+            <p className="text-xl md:text-2xl text-gray-600 dark:text-gray-300 mb-12 max-w-3xl mx-auto leading-relaxed">
+              The complete{' '}
+              <span className="font-semibold text-gray-900 dark:text-white">Next.js + AWS CDK</span>
+              {' '}boilerplate that developers actually want. Stop wasting hours on infrastructure—focus on building.
             </p>
             
             {/* CTA Buttons */}
-            <div className="flex flex-col sm:flex-row gap-4 justify-center mb-16">
+            <div className="flex flex-col sm:flex-row gap-4 justify-center mb-12">
               <a
                 href="https://github.com/michalkubiak98/staticfast-boilerplate"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="group inline-flex items-center justify-center px-8 py-4 bg-gradient-to-r from-amber-500 via-orange-500 to-red-500 text-white font-bold rounded-xl hover:shadow-2xl hover:scale-105 transition-all duration-300 text-lg shadow-lg"
               >
-                <span>Clone Repository</span>
+                <svg className="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M12 2C6.477 2 2 6.477 2 12c0 4.42 2.865 8.17 6.839 9.49.5.092.682-.217.682-.482 0-.237-.008-.866-.013-1.7-2.782.604-3.369-1.34-3.369-1.34-.454-1.156-1.11-1.463-1.11-1.463-.908-.62.069-.608.069-.608 1.003.07 1.531 1.03 1.531 1.03.892 1.529 2.341 1.087 2.91.831.092-.646.35-1.086.636-1.336-2.22-.253-4.555-1.11-4.555-4.943 0-1.091.39-1.984 1.029-2.683-.103-.253-.446-1.27.098-2.647 0 0 .84-.269 2.75 1.025A9.578 9.578 0 0112 6.836c.85.004 1.705.114 2.504.336 1.909-1.294 2.747-1.025 2.747-1.025.546 1.377.203 2.394.1 2.647.64.699 1.028 1.592 1.028 2.683 0 3.842-2.339 4.687-4.566 4.935.359.309.678.919.678 1.852 0 1.336-.012 2.415-.012 2.743 0 .267.18.578.688.48C19.138 20.167 22 16.418 22 12c0-5.523-4.477-10-10-10z"/>
+                </svg>
+                <span>Get Started</span>
                 <span className="ml-2 group-hover:translate-x-1 transition-transform duration-300">→</span>
               </a>
               <a
                 href="#structure"
                 className="inline-flex items-center justify-center px-8 py-4 border-2 border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 font-bold rounded-xl hover:bg-gray-50 dark:hover:bg-gray-800 transition-all text-lg"
               >
-                See What&apos;s Included
+                See Live Demo
               </a>
             </div>
             
+            {/* Deployment Timeline */}
+            <div className="max-w-4xl mx-auto mb-12">
+              <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-lg p-8 border border-gray-200 dark:border-gray-700">
+                <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-6 text-center">From Zero to Production</h3>
+                <div className="relative">
+                  <div className="absolute left-0 right-0 top-1/2 h-1 bg-gradient-to-r from-amber-500 via-orange-500 to-red-500 -translate-y-1/2"></div>
+                  <div className="relative flex justify-between">
+                    <div className="flex flex-col items-center">
+                      <div className="w-10 h-10 bg-white dark:bg-gray-800 border-3 border-amber-500 rounded-full flex items-center justify-center mb-2">
+                        <span className="text-xs font-bold text-amber-600">1</span>
+                      </div>
+                      <span className="text-sm font-medium text-gray-900 dark:text-white">Clone</span>
+                      <span className="text-xs text-gray-500 dark:text-gray-400">30 sec</span>
+                    </div>
+                    <div className="flex flex-col items-center">
+                      <div className="w-10 h-10 bg-white dark:bg-gray-800 border-3 border-orange-500 rounded-full flex items-center justify-center mb-2">
+                        <span className="text-xs font-bold text-orange-600">2</span>
+                      </div>
+                      <span className="text-sm font-medium text-gray-900 dark:text-white">Configure</span>
+                      <span className="text-xs text-gray-500 dark:text-gray-400">5 min</span>
+                    </div>
+                    <div className="flex flex-col items-center">
+                      <div className="w-10 h-10 bg-white dark:bg-gray-800 border-3 border-orange-600 rounded-full flex items-center justify-center mb-2">
+                        <span className="text-xs font-bold text-orange-600">3</span>
+                      </div>
+                      <span className="text-sm font-medium text-gray-900 dark:text-white">Deploy</span>
+                      <span className="text-xs text-gray-500 dark:text-gray-400">10 min</span>
+                    </div>
+                    <div className="flex flex-col items-center">
+                      <div className="w-10 h-10 bg-white dark:bg-gray-800 border-3 border-red-500 rounded-full flex items-center justify-center mb-2">
+                        <span className="text-xs font-bold text-red-600">4</span>
+                      </div>
+                      <span className="text-sm font-medium text-gray-900 dark:text-white">Live!</span>
+                      <span className="text-xs text-gray-500 dark:text-gray-400">15 min</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            
             {/* Quick Stats */}
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-8 max-w-2xl mx-auto">
-              <div className="text-center">
-                <div className="text-3xl font-bold text-gray-900 dark:text-white mb-1">~30min</div>
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 max-w-3xl mx-auto">
+              <div className="bg-gray-50 dark:bg-gray-800/50 rounded-xl p-6 text-center border border-gray-200 dark:border-gray-700">
+                <div className="text-4xl font-bold bg-gradient-to-r from-amber-500 to-orange-500 bg-clip-text text-transparent mb-2">5min</div>
                 <div className="text-sm text-gray-600 dark:text-gray-400">Setup time</div>
               </div>
-              <div className="text-center">
-                <div className="text-3xl font-bold text-gray-900 dark:text-white mb-1">$0.50+</div>
-                <div className="text-sm text-gray-600 dark:text-gray-400">Monthly cost</div>
+              <div className="bg-gray-50 dark:bg-gray-800/50 rounded-xl p-6 text-center border border-gray-200 dark:border-gray-700">
+                <div className="text-4xl font-bold bg-gradient-to-r from-orange-500 to-red-500 bg-clip-text text-transparent mb-2">$0.50</div>
+                <div className="text-sm text-gray-600 dark:text-gray-400">Monthly hosting</div>
               </div>
-              <div className="text-center">
-                <div className="text-3xl font-bold text-gray-900 dark:text-white mb-1">0</div>
-                <div className="text-sm text-gray-600 dark:text-gray-400">Vendor lock-in</div>
+              <div className="bg-gray-50 dark:bg-gray-800/50 rounded-xl p-6 text-center border border-gray-200 dark:border-gray-700">
+                <div className="text-4xl font-bold bg-gradient-to-r from-red-500 to-pink-500 bg-clip-text text-transparent mb-2">99.9%</div>
+                <div className="text-sm text-gray-600 dark:text-gray-400">AWS uptime</div>
               </div>
             </div>
           </div>
@@ -290,7 +339,7 @@ export default function Home() {
                 </div>
                 <div>
                   <h4 className="font-semibold text-gray-900 dark:text-white mb-1">Transparent, minimal costs</h4>
-                  <p className="text-gray-600 dark:text-gray-300">Show clients the actual AWS bill: $0.50-3/month. No markup needed.</p>
+                  <p className="text-gray-600 dark:text-gray-300">Show clients the actual AWS bill: ~$0.50/month for most sites. No markup needed.</p>
                 </div>
               </div>
             </div>
@@ -419,7 +468,7 @@ export default function Home() {
                     </li>
                     <li className="flex items-start">
                       <span className="text-blue-500 mr-2 mt-0.5">•</span>
-                      $0.50-3/month hosting costs (transparent)
+                      $0.50/month average hosting costs
                     </li>
                   </ul>
                 </div>
@@ -586,7 +635,7 @@ export default function Home() {
                   </div>
                   <div>
                     <h4 className="font-semibold text-gray-900 dark:text-white mb-1">Transparent costs</h4>
-                    <p className="text-gray-600 dark:text-gray-300">$0.50-3/month AWS hosting. Show clients the actual bill.</p>
+                    <p className="text-gray-600 dark:text-gray-300">~$0.50/month AWS hosting for typical sites. 100% transparent billing.</p>
                   </div>
                 </div>
 
@@ -707,7 +756,7 @@ export default function Home() {
             <div className="border-t border-gray-800 pt-8 flex flex-col md:flex-row justify-between items-center text-sm text-gray-400">
               <p>&copy; 2025 StaticFast. Open source and free forever.</p>
               <p className="mt-4 md:mt-0">
-                Made by developers who got tired of repetitive infrastructure setup | v1.0
+                This showcase was built using StaticFast itself | Made by developers who got tired of repetitive infrastructure setup | v1.0
               </p>
             </div>
           </div>
