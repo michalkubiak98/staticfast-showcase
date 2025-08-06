@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react'
 
 export default function Home() {
   const [darkMode, setDarkMode] = useState(false)
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
 
   useEffect(() => {
     const isDark = localStorage.getItem('darkMode') === 'true'
@@ -30,6 +31,7 @@ export default function Home() {
       <nav className="sticky top-0 z-50 bg-white/80 dark:bg-gray-900/80 backdrop-blur-md border-b border-gray-200 dark:border-gray-700">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-16">
+            {/* Logo */}
             <div className="flex items-center">
               <div className="w-9 h-9 rounded-xl bg-gradient-to-r from-amber-400 via-orange-500 to-red-500 flex items-center justify-center text-white font-bold mr-3 shadow-lg">
                 ⚡
@@ -38,6 +40,8 @@ export default function Home() {
                 StaticFast
               </span>
             </div>
+
+            {/* Desktop Navigation */}
             <div className="hidden md:flex items-center space-x-8">
               <a href="#features" className="text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white transition-colors text-sm font-medium">
                 Features
@@ -64,7 +68,71 @@ export default function Home() {
                 Get StaticFast →
               </a>
             </div>
+
+            {/* Mobile menu button */}
+            <div className="md:hidden flex items-center space-x-2">
+              <button
+                onClick={toggleDarkMode}
+                className="p-2 rounded-lg text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 transition-all"
+                aria-label="Toggle dark mode"
+              >
+                {darkMode ? '☀️' : '🌙'}
+              </button>
+              <button
+                onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+                className="p-2 rounded-lg text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 transition-all"
+                aria-label="Toggle mobile menu"
+              >
+                {mobileMenuOpen ? (
+                  <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                  </svg>
+                ) : (
+                  <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+                  </svg>
+                )}
+              </button>
+            </div>
           </div>
+
+          {/* Mobile Navigation Menu */}
+          {mobileMenuOpen && (
+            <div className="md:hidden border-t border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900">
+              <div className="px-2 pt-2 pb-3 space-y-1">
+                <a
+                  href="#features"
+                  className="block px-3 py-2 rounded-md text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors text-sm font-medium"
+                  onClick={() => setMobileMenuOpen(false)}
+                >
+                  Features
+                </a>
+                <a
+                  href="#structure"
+                  className="block px-3 py-2 rounded-md text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors text-sm font-medium"
+                  onClick={() => setMobileMenuOpen(false)}
+                >
+                  Structure
+                </a>
+                <a
+                  href="#stack"
+                  className="block px-3 py-2 rounded-md text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors text-sm font-medium"
+                  onClick={() => setMobileMenuOpen(false)}
+                >
+                  Tech Stack
+                </a>
+                <a
+                  href="https://github.com/michalkubiak98/staticfast-boilerplate"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="block mx-3 mt-4 bg-gradient-to-r from-amber-500 via-orange-500 to-red-500 text-white px-4 py-3 rounded-xl text-sm font-semibold text-center shadow-lg"
+                  onClick={() => setMobileMenuOpen(false)}
+                >
+                  Get StaticFast →
+                </a>
+              </div>
+            </div>
+          )}
         </div>
       </nav>
 
