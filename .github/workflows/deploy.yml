@@ -19,13 +19,45 @@ jobs:
         node-version: '18'
         cache: 'npm'
         
-    - name: Use existing .env file (configured by Claude Code)
+    - name: Create .env file for showcase
       run: |
-        if [ ! -f .env ]; then
-          echo "Error: .env file not found. Please run 'claude' first to configure your project."
-          exit 1
-        fi
-        echo "Using existing .env configuration"
+        cat > .env << EOF
+        # StaticFast Showcase Configuration
+        BUSINESS_NAME="StaticFast"
+        BUSINESS_TAGLINE="Ship professional client websites in 30 minutes"
+        BUSINESS_DESCRIPTION="The fastest way to deploy professional business websites using Claude Code and AWS."
+        PHONE="555-123-4567"
+        EMAIL="hello@staticfast.dev"
+        ADDRESS="San Francisco, CA"
+        DOMAIN_NAME=""
+        WWW_REDIRECT="true"
+        AWS_REGION="us-east-1"
+        AWS_ACCOUNT_ID="${{ secrets.AWS_ACCOUNT_ID || '680036080452' }}"
+        PROJECT_SLUG="staticfast-showcase"
+        PRIMARY_COLOR="#f59e0b"
+        SECONDARY_COLOR="#ea580c"
+        ACCENT_COLOR="#ef4444"
+        LOGO_PATH="/logo.png"
+        HERO_BADGE_TEXT="FREE while in beta"
+        HERO_TITLE_LINE1="Ship your client websites"
+        HERO_TITLE_LINE2="in 30 minutes"
+        HERO_SUBTITLE="Stop wrestling with AWS infrastructure. StaticFast gives you everything you need: Next.js + CDK + GitHub Actions. Just copy, configure, deploy."
+        SERVICE_1_NAME=""
+        SERVICE_1_PRICE=""
+        SERVICE_1_DURATION=""
+        SERVICE_1_DESCRIPTION=""
+        SERVICE_2_NAME=""
+        SERVICE_2_PRICE=""
+        SERVICE_2_DURATION=""
+        SERVICE_2_DESCRIPTION=""
+        SERVICE_3_NAME=""
+        SERVICE_3_PRICE=""
+        SERVICE_3_DURATION=""
+        SERVICE_3_DESCRIPTION=""
+        META_TITLE="StaticFast - Ship Client Websites in 30 Minutes | Next.js + AWS CDK Boilerplate"
+        META_DESCRIPTION="Professional Next.js + AWS CDK boilerplate for developers. S3 + CloudFront + Route53 with GitHub Actions CI/CD. Deploy client websites in minutes, not hours."
+        META_KEYWORDS="nextjs boilerplate, aws cdk, static website deployment, client websites, developer tools, github actions"
+        EOF
         
     - name: Install dependencies
       run: npm ci
@@ -40,26 +72,11 @@ jobs:
         aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
         aws-region: ${{ secrets.AWS_REGION || 'us-east-1' }}
         
-    - name: Install CDK dependencies
-      run: |
-        cd cdk
-        npm ci
-        
-    - name: Bootstrap CDK (if needed)
-      run: |
-        cd cdk
-        npx cdk bootstrap --require-approval never
-        
-    - name: Deploy infrastructure
-      run: |
-        cd cdk
-        npx cdk deploy --require-approval never
-        
     - name: Deploy to S3 and Invalidate CloudFront
       run: |
-        # Get project slug from .env
-        PROJECT_SLUG=$(grep '^PROJECT_SLUG=' .env | cut -d'=' -f2 | tr -d '"')
-        AWS_ACCOUNT_ID=$(grep '^AWS_ACCOUNT_ID=' .env | cut -d'=' -f2 | tr -d '"')
+        # Fixed values for showcase
+        PROJECT_SLUG="staticfast-showcase"
+        AWS_ACCOUNT_ID="${{ secrets.AWS_ACCOUNT_ID || '680036080452' }}"
         
         # Deploy to S3
         BUCKET_NAME="${PROJECT_SLUG}-website-${AWS_ACCOUNT_ID}"
@@ -67,7 +84,7 @@ jobs:
         aws s3 sync out/ s3://$BUCKET_NAME --delete
         
         # Find and invalidate CloudFront distribution
-        DISTRIBUTION_ID=$(aws cloudfront list-distributions --query "DistributionList.Items[?Origins.Items[0].DomainName==\`${BUCKET_NAME}.s3.amazonaws.com\`].Id | [0]" --output text)
+        DISTRIBUTION_ID=$(aws cloudfront list-distributions --query "DistributionList.Items[?Comment=='StaticFast Website'].Id | [0]" --output text)
         if [ "$DISTRIBUTION_ID" != "None" ] && [ "$DISTRIBUTION_ID" != "" ]; then
           echo "Invalidating CloudFront distribution: $DISTRIBUTION_ID"
           aws cloudfront create-invalidation --distribution-id $DISTRIBUTION_ID --paths "/*"
@@ -78,9 +95,4 @@ jobs:
     - name: Deployment Complete
       run: |
         echo "🚀 Deployment completed successfully!"
-        DOMAIN_NAME=$(grep '^DOMAIN_NAME=' .env | cut -d'=' -f2 | tr -d '"')
-        if [ -n "$DOMAIN_NAME" ]; then
-          echo "🌐 Website URL: https://$DOMAIN_NAME"
-        else
-          echo "🌐 CloudFront URL: Available in AWS Console"
-        fi
+        echo "🌐 Website URL: https://d2jiu7sqlhhawi.cloudfront.net"
